@@ -1,0 +1,22 @@
+baseURL = "https://toolscout.pages.dev"
+languageCode = "en-us"
+title = "ToolScout — Best Software Tools & Free Alternatives"
+theme = "PaperMod"
+paginate = 10
+enableRobotsTXT = true
+
+[params]
+description = "Honest comparisons of software tools, free alternatives, and productivity guides."
+ShowReadingTime = true
+ShowPostNavLinks = true
+defaultTheme = "auto"
+
+[params.homeInfoParams]
+Title = "Find the Best Tools for Every Task"
+Content = "We compare software tools so you don't have to."
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
+
+[sitemap]
+changefreq = "weekly"
