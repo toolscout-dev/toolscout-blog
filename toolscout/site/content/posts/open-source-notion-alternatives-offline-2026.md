@@ -5,6 +5,7 @@ description: "Discover the best open source Notion alternatives with full offlin
 tags: ["productivity", "tools", "free", "open-source", "privacy"]
 categories: ["alternatives"]
 draft: false
+slug: "open-source-notion-alternatives-offline-2026"
 ---
 
 Notion changed how we organize work—but it comes with trade-offs. Your data lives on their servers. You need internet to access it. And if Notion goes down, so does your workflow.
