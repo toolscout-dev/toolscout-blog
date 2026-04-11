@@ -20,3 +20,6 @@ home = ["HTML", "RSS", "JSON"]
 
 [sitemap]
 changefreq = "weekly"
+
+[permalinks]
+  posts = "/posts/:slug/"
