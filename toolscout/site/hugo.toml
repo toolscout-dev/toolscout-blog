@@ -13,7 +13,7 @@ defaultTheme = "auto"
 
 [params.homeInfoParams]
 Title = "Find the Best Tools for Every Task"
-Content = "We compare software tools so you don't have to."
+Content = "Independent software reviews and comparisons. No sponsored content. Updated weekly."
 
 [outputs]
 home = ["HTML", "RSS", "JSON"]
