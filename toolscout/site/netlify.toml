@@ -1,7 +1,0 @@
-[build]
-  base = "toolscout/site"
-  command = "hugo --minify"
-  publish = "toolscout/site/public"
-
-[build.environment]
-  HUGO_VERSION = "0.160.1"
