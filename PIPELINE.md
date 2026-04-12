@@ -2,10 +2,10 @@
 
 ## Last Run
 - Date: 2026-04-12
-- Article: How to Self-Host AFFiNE: Your Private Notion Alternative in 10 Minutes
+- Article: Bitwarden Review 2026: The Only Password Manager You Need
 - Status: Published
-- URL: https://mellow-clafoutis-9657ae.netlify.app/posts/how-to-self-host-affine-notion-alternative/
+- URL: https://mellow-clafoutis-9657ae.netlify.app/posts/bitwarden-review-2026-best-password-manager/
 
 ## Stats
-- Total articles: 3
-- This week: 3
+- Total articles: 4
+- This week: 4
