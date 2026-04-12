@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} — {{ .Site.Title }}{{ end }}</title>
+ <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+ <link rel="canonical" href="{{ .Permalink }}">
+ {{ $css := resources.Get "css/extended/custom.css" }}
+ {{ if $css }}<link rel="stylesheet" href="{{ $css.Permalink }}">{{ end }}
+ {{ template "_internal/opengraph.html" . }}
+ {{ template "_internal/schema.html" . }}
+ {{ template "_internal/twitter_cards.html" . }}
+</head>
+<body>
+ <header class="site-header">
+ <div class="header-inner">
+ <a href="/" class="site-logo">Tool<span class="logo-accent">Scout</span></a>
+ <nav class="site-nav">
+ <a href="/">Articles</a>
+ <a href="/about/">About</a>
+ </nav>
+ </div>
+ </header>
+ {{ block "main" . }}{{ end }}
+ <footer class="site-footer">
+ <div class="footer-inner">
+ <span class="footer-copy">&copy; {{ now.Year }} ToolScout</span>
+ <div class="footer-links">
+ <a href="/about/">About</a>
+ <a href="/index.xml">RSS</a>
+ </div>
+ </div>
+ </footer>
+ {{ if .IsPage }}
+ <script>
+ window.addEventListener('scroll', function() {
+ var bar = document.querySelector('.progress-bar');
+ if (!bar) return;
+ var h = document.documentElement;
+ var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+ bar.style.width = pct + '%';
+ });
+ </script>
+ {{ end }}
+</body>
+</html>

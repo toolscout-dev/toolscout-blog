@@ -1,0 +1,26 @@
+{{ define "main" }}
+<section class="hero">
+ <p class="hero-tagline">Independent Software Reviews</p>
+ <h1>Find the Right Tool.<br>Skip the Noise.</h1>
+ <p class="hero-description">Honest comparisons, real alternatives, and no sponsored content. We test tools so you don't have to.</p>
+</section>
+<section class="content-section">
+ <p class="section-label">Latest Articles</p>
+ <div class="articles-grid">
+ {{ range first 12 (where .Site.RegularPages "Section" "posts") }}
+ <a href="{{ .Permalink }}" class="article-card">
+ <div class="card-meta">
+ {{ with .Params.categories }}{{ range first 1 . }}<span class="card-category">{{ . }}</span>{{ end }}{{ end }}
+ <span class="card-date">{{ .Date.Format "Jan 2, 2006" }}</span>
+ </div>
+ <h2 class="card-title">{{ .Title }}</h2>
+ <p class="card-excerpt">{{ .Description | truncate 160 }}</p>
+ <div class="card-footer">
+ <span class="card-reading-time">{{ .ReadingTime }} min read</span>
+ <span class="card-arrow">&rarr;</span>
+ </div>
+ </a>
+ {{ end }}
+ </div>
+</section>
+{{ end }}

@@ -1,0 +1,20 @@
+{{ define "main" }}
+<section class="content-section" style="padding-top: 7rem;">
+ <p class="section-label">{{ .Title }}</p>
+ <div class="articles-grid">
+ {{ range .Pages }}<a href="{{ .Permalink }}" class="article-card">
+ <div class="card-meta">
+ {{ with .Params.categories }}{{ range first 1 . }}<span class="card-category">{{ . }}</span>{{ end }}{{ end }}
+ <span class="card-date">{{ .Date.Format "Jan 2, 2006" }}</span>
+ </div>
+ <h2 class="card-title">{{ .Title }}</h2>
+ <p class="card-excerpt">{{ .Description | truncate 160 }}</p>
+ <div class="card-footer">
+ <span class="card-reading-time">{{ .ReadingTime }} min read</span>
+ <span class="card-arrow">&rarr;</span>
+ </div>
+ </a>
+ {{ end }}
+ </div>
+</section>
+{{ end }}
