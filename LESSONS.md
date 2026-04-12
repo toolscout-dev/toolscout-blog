@@ -10,6 +10,7 @@
 - Include comparison tables for pricing—they're highly scannable
 - Code snippets (self-hosting commands) add value for technical readers
 - Compliance badges (SOC 2, HIPAA, GDPR) add credibility for enterprise tools
+- How-to guides: Prerequisites → Step-by-step → Troubleshooting → Next steps
 
 ## Mistakes to Avoid
 - Don't use && in PowerShell commands—use ; instead
