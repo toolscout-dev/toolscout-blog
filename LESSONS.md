@@ -4,6 +4,7 @@
 - Open source alternatives are a strong niche—lower competition, engaged audience
 - Pricing comparison angles ("X% cheaper than") work well for click-through
 - GitHub trending repos make great content opportunities
+- Privacy/GDPR angles resonate strongly in 2026
 
 ## Content Patterns
 - Structure: Hook → What is it → Features → Pricing → Verdict

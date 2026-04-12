@@ -27,7 +27,14 @@
       "published": "2026-04-12",
       "category": "reviews",
       "wordCount": 1600
+    },
+    {
+      "title": "Plausible Analytics: The Privacy-First Google Analytics Alternative",
+      "slug": "plausible-analytics-privacy-google-analytics-alternative",
+      "published": "2026-04-13",
+      "category": "alternatives",
+      "wordCount": 1500
     }
   ],
-  "lastUpdated": "2026-04-12"
+  "lastUpdated": "2026-04-13"
 }
