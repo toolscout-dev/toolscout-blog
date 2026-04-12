@@ -1,4 +1,12 @@
 {
-  "articles": [],
+  "articles": [
+    {
+      "title": "Cap vs Loom: The Open Source Screen Recorder That Costs 55% Less",
+      "slug": "cap-vs-loom-open-source-screen-recorder",
+      "published": "2026-04-12",
+      "category": "reviews",
+      "wordCount": 1450
+    }
+  ],
   "lastUpdated": "2026-04-12"
 }
