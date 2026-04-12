@@ -1,10 +1,34 @@
 [
   {
     "keyword": "open source Notion alternatives with offline mode 2026",
-    "status": "in_progress",
+    "status": "published",
     "priority": 1,
     "competition": "low-medium",
     "search_date": "2026-04-11",
-    "notes": "Good long-tail keyword. Results from smaller blogs like listicler.com, openalternative.co. Focus on Anytype, AppFlowy, Obsidian, AFFiNE, Joplin."
+    "notes": "Published. Results from smaller blogs like listicler.com, openalternative.co."
+  },
+  {
+    "keyword": "Anytype vs AppFlowy 2026",
+    "status": "published",
+    "priority": 2,
+    "competition": "low",
+    "search_date": "2026-04-12",
+    "notes": "Published. Comparison article. Results from openalternative.co, docmost.com."
+  },
+  {
+    "keyword": "best free time tracking tools for freelancers 2026",
+    "status": "published",
+    "priority": 2,
+    "competition": "low-medium",
+    "search_date": "2026-04-12",
+    "notes": "Published. Freelancing category. Results from desklog.io, chronoid.app, yuanqilife.com."
+  },
+  {
+    "keyword": "how to build a second brain with free tools",
+    "status": "published",
+    "priority": 2,
+    "competition": "low-medium",
+    "search_date": "2026-04-12",
+    "notes": "Published. Guide/tutorial format. Results from techsifted.com, remlabs.ai, atlasworkspace.ai."
   }
 ]
