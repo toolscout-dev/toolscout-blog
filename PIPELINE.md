@@ -2,10 +2,10 @@
 
 ## Last Run
 - Date: 2026-04-13
-- Article: Penpot Review 2026: The Free Figma Alternative That Actually Works
+- Article: Baserow: The Airtable Alternative That Saves You $240/User/Year
 - Status: Published
-- URL: https://mellow-clafoutis-9657ae.netlify.app/posts/penpot-review-2026-figma-alternative/
+- URL: https://mellow-clafoutis-9657ae.netlify.app/posts/baserow-airtable-alternative-open-source-database/
 
 ## Stats
-- Total articles: 8
-- This week: 8
+- Total articles: 9
+- This week: 9
