@@ -2,10 +2,10 @@
 
 ## Last Run
 - Date: 2026-04-13
-- Article: How to Self-Host n8n: Build AI Workflows for $5/Month
+- Article: Penpot Review 2026: The Free Figma Alternative That Actually Works
 - Status: Published
-- URL: https://mellow-clafoutis-9657ae.netlify.app/posts/how-to-self-host-n8n-workflow-automation/
+- URL: https://mellow-clafoutis-9657ae.netlify.app/posts/penpot-review-2026-figma-alternative/
 
 ## Stats
-- Total articles: 7
-- This week: 7
+- Total articles: 8
+- This week: 8
