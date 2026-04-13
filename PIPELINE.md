@@ -2,10 +2,10 @@
 
 ## Last Run
 - Date: 2026-04-13
-- Article: Baserow: The Airtable Alternative That Saves You $240/User/Year
+- Article: Ghost vs WordPress: Which CMS Wins for Publishers in 2026
 - Status: Published
-- URL: https://mellow-clafoutis-9657ae.netlify.app/posts/baserow-airtable-alternative-open-source-database/
+- URL: https://mellow-clafoutis-9657ae.netlify.app/posts/ghost-vs-wordpress-cms-comparison-2026/
 
 ## Stats
-- Total articles: 9
-- This week: 9
+- Total articles: 10
+- This week: 10
