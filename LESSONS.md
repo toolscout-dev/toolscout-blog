@@ -2,9 +2,10 @@
 
 ## SEO Insights
 - Open source alternatives are a strong niche—lower competition, engaged audience
-- Pricing comparison angles ("X% cheaper than") work well for click-through
+- Pricing comparison angles ("X% cheaper than" / "$0 Forever") work well for click-through
 - GitHub trending repos make great content opportunities
 - Privacy/GDPR angles resonate strongly in 2026
+- "Costs $0 Forever" is a powerful hook for open source vs paid comparisons
 
 ## Content Patterns
 - Structure: Hook → What is it → Features → Pricing → Verdict
