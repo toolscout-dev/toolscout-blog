@@ -9,6 +9,7 @@
 - Design tools (Figma alternatives) have high search volume and commercial intent
 - No-code database tools (Airtable alternatives) attract both technical and business audiences
 - CMS comparisons (Ghost vs WordPress) have high search volume and strong commercial intent
+- Photo management/self-hosting (Google Photos alternatives) taps into privacy concerns and data ownership trends
 
 ## Content Patterns
 - Structure: Hook → What is it → Features → Pricing → Verdict
