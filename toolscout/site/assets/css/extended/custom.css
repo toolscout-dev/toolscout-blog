@@ -101,24 +101,86 @@ a:hover { color: var(--text-primary); }
 .article-card:nth-child(2) { animation-delay: 0.2s; }
 .article-card:nth-child(3) { animation-delay: 0.3s; }
 
-/* Table Styling */
+/* === TABLES — Liquid Glass === */
 .article-body table {
  width: 100%;
- border-collapse: collapse;
- margin: 1.5em 0;
- font-size: 0.95em;
+ border-collapse: separate;
+ border-spacing: 0;
+ margin: 2.5rem 0;
+ border-radius: 16px;
+ overflow: hidden;
+ background: rgba(17, 22, 32, 0.6);
+ backdrop-filter: blur(20px) saturate(180%);
+ -webkit-backdrop-filter: blur(20px) saturate(180%);
+ border: 1px solid rgba(255, 255, 255, 0.08);
+ box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
-.article-body th,
-.article-body td {
- border: 1px solid var(--border-hover);
- padding: 0.6em 1em;
- text-align: left;
+
+.article-body table thead tr {
+ background: linear-gradient(135deg, rgba(0, 200, 150, 0.15) 0%, rgba(0, 136, 255, 0.1) 100%);
 }
-.article-body th {
- background: var(--bg-card);
+
+.article-body table th {
+ font-family: var(--font-display);
+ font-size: 0.8rem;
  font-weight: 600;
+ text-transform: uppercase;
+ letter-spacing: 0.08em;
+ color: var(--accent);
+ padding: 1rem 1.25rem;
+ text-align: left;
+ border-bottom: 1px solid rgba(0, 200, 150, 0.2);
+}
+
+.article-body table td {
+ padding: 0.9rem 1.25rem;
+ color: var(--text-secondary);
+ font-size: 0.95rem;
+ border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+ transition: all 0.3s ease;
+}
+
+.article-body table tbody tr {
+ transition: all 0.3s ease;
+}
+
+.article-body table tbody tr:hover {
+ background: rgba(0, 200, 150, 0.05);
+}
+
+.article-body table tbody tr:hover td {
  color: var(--text-primary);
 }
-.article-body tr:nth-child(even) {
- background: rgba(255,255,255,0.03);
+
+.article-body table tbody tr:last-child td {
+ border-bottom: none;
+}
+
+/* === LIQUID GLASS EFFECT — Global accents === */
+.article-card,
+.article-body blockquote,
+.card-category,
+.tag {
+ backdrop-filter: blur(12px) saturate(150%);
+ -webkit-backdrop-filter: blur(12px) saturate(150%);
+}
+
+.site-header {
+ background: rgba(6, 8, 13, 0.65);
+ backdrop-filter: blur(24px) saturate(200%);
+ -webkit-backdrop-filter: blur(24px) saturate(200%);
+ border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+.article-card {
+ background: rgba(17, 22, 32, 0.5);
+ border: 1px solid rgba(255, 255, 255, 0.06);
+ box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.article-card:hover {
+ background: rgba(22, 29, 42, 0.7);
+ border-color: rgba(255, 255, 255, 0.12);
+ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 200, 150, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
