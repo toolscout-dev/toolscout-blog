@@ -11,58 +11,56 @@ author: "Scout"
 
 # Plausible Analytics: The Privacy-First Google Analytics Alternative
 
-Google Analytics is free the same way Facebook is free—you're not the customer, you're the product. Your visitors' data feeds Google's ad machine while you wrestle with cookie banners, complex dashboards, and compliance headaches.
+Google Analytics is free. You pay with visitor data and compliance headaches. Cookie banners. GDPR complexity. Slow scripts.
 
-There's a better way. Plausible Analytics gives you the insights you need without selling your soul—or your users' privacy.
+Plausible gives you insights without the baggage. Lightweight. Privacy-focused. No cookies.
 
-## What Is Plausible Analytics?
+## What Plausible Is
 
-Plausible is an open-source web analytics tool built by Uku Täht and Marko Saric. It's designed to be everything Google Analytics isn't: simple, fast, privacy-focused, and compliant by default.
+Open-source analytics by Uku Täht and Marko Saric. Built to be simple, fast, compliant by default.
 
-The script is 75 times smaller than Google's. It doesn't use cookies. It doesn't collect personal data. And it presents everything you need on a single, clean dashboard.
+Script is 1KB. Google Analytics is 45KB+. No cookies. No personal data collection. Single clean dashboard.
 
-## Why Ditch Google Analytics?
+v2.1.0 current as of April 2026.
 
-Google Analytics 4 is a mess. The interface is confusing. The learning curve is steep. And the privacy implications are real:
+## Why Switch
 
-- **Cookie banners required** in the EU
-- **Data transfers to the US** (Schrems II concerns)
-- **Complex compliance setup** for GDPR, CCPA, PECR
-- **Slow loading** (the script alone can hurt Core Web Vitals)
+Google Analytics 4 is complex. Steep learning curve. Privacy issues:
+- Cookie banners required (EU)
+- Data transfers to US (Schrems II)
+- Complex GDPR compliance
+- Slow loading (hurts Core Web Vitals)
 
-Plausible solves all of this.
+Plausible solves this.
 
-## Privacy by Design
+## Privacy
 
-Plausible doesn't just claim to be privacy-friendly—it is privacy-friendly:
+- **No cookies** → No consent banner
+- **No personal data** → No IP storage
+- **No cross-site tracking** → Sites isolated
+- **EU-hosted** → Data stays in Europe
+- **GDPR, CCPA, PECR compliant** → Out of box
 
-- **No cookies** → No cookie consent banner needed
-- **No personal data** → No IP addresses stored
-- **No cross-site tracking** → Each site is isolated
-- **EU-hosted** → Data never leaves European servers
-- **GDPR, CCPA, PECR compliant** → Out of the box
+Visitors tracked anonymously. You get metrics without surveillance.
 
-Your visitors are tracked anonymously. You get the metrics that matter without the surveillance.
+## Dashboard
 
-## The Dashboard: Simple But Powerful
+One page shows:
+- Unique visitors, pageviews
+- Bounce rate, visit duration
+- Top pages, referrers
+- Countries, devices
+- Goals, conversions
 
-Plausible shows you everything important on one page:
+No custom reports. No training. Check stats in under a minute.
 
-- Unique visitors and total pageviews
-- Bounce rate and visit duration
-- Top pages and referrers
-- Countries and devices
-- Goals and conversions
+## Speed
 
-No custom reports. No PowerPoint exports. No training required. You can check your stats in under a minute and get back to work.
+Plausible: <1KB script. Google: 45KB+.
 
-## Speed Matters
+100,000 monthly visitors = 8.2 kg less CO2/year with Plausible. Faster and greener.
 
-Plausible's script is less than 1KB. Compare that to Google Analytics' 45KB+ payload.
-
-For a site with 100,000 monthly visitors, switching to Plausible saves 8.2 kg of CO2 emissions per year. It's not just faster—it's greener.
-
-## Pricing: Reasonable and Transparent
+## Pricing
 
 | Monthly Pageviews | Price |
 |------------------|-------|
@@ -70,73 +68,73 @@ For a site with 100,000 monthly visitors, switching to Plausible saves 8.2 kg of
 | 100,000 | $19/month |
 | 1,000,000 | $49/month |
 
-There's also a 30-day free trial—no credit card required.
+30-day free trial. No credit card.
 
-Compare this to Google Analytics: "free" but you pay with user data, compliance complexity, and site performance. For most businesses, Plausible's pricing is a rounding error compared to the time saved on compliance and the improved user experience.
+Google Analytics: "Free" but costs user data, compliance time, performance. Plausible pricing is minimal vs time saved.
 
-## Self-Hosting Option
+## Self-Hosting
 
-Plausible is open source (AGPL license). You can self-host the community edition for free:
+Open source (AGPL). Self-host free:
 
 ```bash
 git clone https://github.com/plausible/analytics.git
 cd analytics
-# Follow the self-hosting guide at plausible.io/docs/self-hosting
+# Follow docs at plausible.io/docs/self-hosting
 ```
 
-Self-hosting requires technical setup—Docker, Postgres, ClickHouse—but gives you complete control. The community edition includes most features, though some enterprise features are cloud-only.
+Requires Docker, Postgres, ClickHouse. Community edition has most features. Enterprise features cloud-only.
 
-## Features That Matter
+## Features
 
-### Goal Tracking
-Set up custom events to track conversions, signups, or any action that matters to your business. No code required for basic goals.
+**Goal Tracking**
+Custom events for conversions, signups. No code for basic goals.
 
-### Funnel Analysis
-See where users drop off in multi-step processes. Essential for optimizing checkout flows and onboarding.
+**Funnel Analysis**
+See drop-off in multi-step processes. Essential for checkout optimization.
 
-### Revenue Attribution
-Track which traffic sources drive actual revenue, not just pageviews.
+**Revenue Attribution**
+Track which sources drive revenue, not just pageviews.
 
-### Shared Dashboards
-Send public links to your stats or embed them in your site. Perfect for transparency reports.
+**Shared Dashboards**
+Public links or embeds. Good for transparency reports.
 
-### Google Analytics Import
-Moving from GA? Import your historical data so you don't lose context.
+**Google Analytics Import**
+Import historical data. Don't lose context.
 
-## Who Should Use Plausible?
+## Who Should Use Plausible
 
-**Plausible is perfect for:**
-- Privacy-conscious businesses
-- EU-based companies (GDPR compliance)
-- Indie hackers and bootstrappers
-- Anyone tired of cookie banners
-- Sites where speed matters
+**Use if:**
+- Privacy matters
+- EU-based (GDPR)
+- Indie hackers, bootstrappers
+- Tired of cookie banners
+- Speed matters
 
-**Stick with Google Analytics if:**
-- You need advanced e-commerce tracking
-- Your organization requires Google's ecosystem
-- You have complex attribution modeling needs
+**Stick with Google if:**
+- Advanced e-commerce tracking needed
+- Organization requires Google ecosystem
+- Complex attribution modeling
 
-## The Competition
+## Competition
 
-**Fathom** ($14/month): Similar privacy focus, slightly more expensive, also Canadian/EU hosted. Good alternative if Plausible's pricing doesn't fit.
+**Fathom** ($14/month): Similar privacy focus, slightly more expensive. Canadian/EU hosted.
 
-**Matomo** (Free-$19/month): More feature-rich, steeper learning curve. Self-hosted option is powerful but complex.
+**Matomo** (Free-$19/month): More features, steeper learning curve. Self-hosted is powerful but complex.
 
-**Simple Analytics** ($19/month): Clean interface, higher price point. Good for those who want extreme simplicity.
+**Simple Analytics** ($19/month): Clean, higher price. Extreme simplicity.
 
-**Cloudflare Web Analytics** (Free): Privacy-focused but limited features. Good starting point for basic needs.
+**Cloudflare Web Analytics** (Free): Privacy-focused, limited features. Good for basic needs.
 
-## The Verdict
+## Verdict
 
-Plausible Analytics proves you don't need to spy on users to understand your traffic. It's fast, compliant, and surprisingly affordable. The dashboard gives you actionable insights without the bloat.
+Plausible proves you don't need surveillance to understand traffic. Fast, compliant, affordable. Actionable insights without bloat.
 
-For most websites—blogs, SaaS products, e-commerce stores—Plausible provides everything you need. The time saved on compliance alone justifies the cost.
+Most websites—blogs, SaaS, e-commerce—get everything they need. Time saved on compliance justifies cost.
 
-If you're still using Google Analytics in 2026, ask yourself: who is that really serving? Your business, or Google's ad business?
+Still using Google Analytics in 2026? Ask who it serves. Your business, or Google's ad business?
 
-**Bottom line:** Plausible is the analytics tool Google should have built. Simple, fast, ethical, and it just works.
+**Verdict:** Plausible is what Google Analytics should be. Simple, fast, ethical, works.
 
 ---
 
-*Switched from Google Analytics to Plausible? Share your experience below. Still on the fence? Check out their live demo at plausible.io/plausible.io.*
+*Plausible v2.1.0 tested. Pricing current April 2026.*

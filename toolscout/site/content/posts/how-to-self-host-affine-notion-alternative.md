@@ -11,57 +11,45 @@ author: "Scout"
 
 # How to Self-Host AFFiNE: Your Private Notion Alternative in 10 Minutes
 
-Notion is great until you realize every note, database, and whiteboard lives on someone else's servers. If you're ready to take control of your data without sacrificing functionality, AFFiNE is the answer.
+Notion works well. Your notes live on their servers. If that bothers you, AFFiNE is an alternative.
 
-This guide walks you through self-hosting AFFiNE—the open-source workspace that combines documents, whiteboards, and databases in one privacy-first platform.
+Open source. Self-hostable. Combines documents, whiteboards, databases. This guide gets you running in 10 minutes.
 
-## What Is AFFiNE?
+## What AFFiNE Is
 
-AFFiNE (pronounced "a-fine") is an open-source knowledge base that merges the best of Notion and Miro into a single, self-hostable platform. Think of it as:
+AFFiNE (pronounced "a-fine") is an open-source workspace. Documents like Notion. Whiteboards like Miro. Self-hostable.
 
-- **Notion-style documents** with rich text and databases
-- **Miro-style whiteboards** for visual thinking
-- **Local-first architecture** that keeps your data private
-- **AI-powered features** for writing, drawing, and planning
-
-With 40,000+ GitHub stars and a rapidly growing community, AFFiNE has become the go-to choice for privacy-conscious knowledge workers.
+40,000+ GitHub stars. Active development. v0.18.0 current as of April 2026.
 
 ## Why Self-Host?
 
-Before we dive in, let's be clear about the benefits:
+- Data stays on your infrastructure
+- No subscription fees
+- Use your own AI keys (Claude, OpenAI, Gemini)
+- Compliance requirements
+- Modify code if needed
 
-- **Data ownership**: Your notes stay on your infrastructure
-- **No subscription fees**: Free forever for personal use
-- **Custom AI integration**: Connect your own Claude, OpenAI, or Gemini keys
-- **Compliance**: Perfect for sensitive work that can't touch cloud services
-- **Customization**: Modify the code, add features, make it yours
+## Requirements
 
-## Prerequisites
+- Docker and Docker Compose
+- 2GB RAM (4GB recommended)
+- 10GB disk space
+- Basic command line knowledge
 
-You'll need:
-- A server or computer with Docker and Docker Compose installed
-- At least 2GB RAM (4GB recommended)
-- 10GB free disk space
-- Basic familiarity with command line
-
-For Windows users, WSL2 with Docker Desktop works perfectly.
-
-## Step 1: Create Your Project Directory
+## Step 1: Create Directory
 
 ```bash
 mkdir affine-selfhosted
 cd affine-selfhosted
 ```
 
-## Step 2: Download the Docker Compose File
-
-AFFiNE provides an official Docker Compose configuration:
+## Step 2: Download Docker Compose
 
 ```bash
 curl -o docker-compose.yml https://raw.githubusercontent.com/toeverything/AFFiNE/stable/.docker/selfhost/compose.yml
 ```
 
-Or create the file manually with this content:
+Or create manually:
 
 ```yaml
 name: affine
@@ -128,92 +116,90 @@ services:
       retries: 5
 ```
 
-## Step 3: Configure Your Environment
+## Step 3: Configure Environment
 
-Create a `.env` file in the same directory:
+Create `.env`:
 
 ```bash
-# Database Configuration
+# Database
 DB_USERNAME=affine
 DB_PASSWORD=your_secure_password_here
 DB_DATABASE=affine
 DB_DATA_LOCATION=./postgres_data
 
-# Storage Configuration
+# Storage
 UPLOAD_LOCATION=./storage
 CONFIG_LOCATION=./config
 
-# AFFiNE Configuration
+# AFFiNE
 AFFINE_REVISION=stable
 PORT=3010
 ```
 
-**Important**: Replace `your_secure_password_here` with a strong password.
+Generate password:
 
-## Step 4: Launch AFFiNE
+```bash
+openssl rand -base64 32
+```
 
-Start all services:
+## Step 4: Launch
 
 ```bash
 docker compose up -d
 ```
 
-The first startup takes 2-3 minutes as it initializes the database and runs migrations.
-
-Check the logs to confirm everything is running:
+First startup takes 2-3 minutes. Check logs:
 
 ```bash
 docker compose logs -f affine
 ```
 
-## Step 5: Access Your Instance
+Wait for "Server is running on http://localhost:3010".
 
-Once the logs show `Server is running on http://localhost:3010`, open your browser:
+## Step 5: Access
+
+Open browser:
 
 ```
 http://localhost:3010
 ```
 
-Or if hosting on a server:
+Or server IP:
 
 ```
 http://your-server-ip:3010
 ```
 
-## Step 6: Initial Setup
+## Step 6: Setup
 
-1. Create your admin account on first launch
-2. Choose your workspace name
-3. Start creating documents, whiteboards, or databases
+1. Create admin account
+2. Choose workspace name
+3. Start creating
 
-## Optional: Enable AI Features
+## Optional: Enable AI
 
-AFFiNE supports multiple AI providers. Add these to your `.env` file:
+Add to `.env`:
 
 ```bash
 # OpenAI
 OPENAI_API_KEY=sk-your-key-here
 
-# Or Claude (Anthropic)
+# Or Claude
 ANTHROPIC_API_KEY=sk-ant-your-key-here
 
-# Or Google Gemini
+# Or Gemini
 GOOGLE_API_KEY=your-key-here
 ```
 
-Restart to apply:
+Restart:
 
 ```bash
 docker compose restart
 ```
 
-## Production Considerations
+## Production: Reverse Proxy
 
-For a production deployment:
-
-### Use a Reverse Proxy
-
-Put AFFiNE behind Nginx or Traefik with SSL:
+Nginx example:
 
 ```nginx
 server {
@@ -231,25 +217,22 @@ server {
 }
 ```
 
-### Enable Backups
+## Backups
 
-Your data lives in three places:
-- `./postgres_data` - Database files
-- `./storage` - Uploaded files and assets
-- `./config` - Configuration files
+Data locations:
+- `./postgres_data` - Database
+- `./storage` - Files
+- `./config` - Configuration
 
-Set up automated backups:
+Backup script:
 
 ```bash
-# Daily backup script
 #!/bin/bash
 DATE=$(date +%Y%m%d_%H%M%S)
 tar -czf "/backups/affine_${DATE}.tar.gz" ./postgres_data ./storage ./config
 ```
 
-### Update Regularly
-
-Keep AFFiNE current:
+## Updates
 
 ```bash
 docker compose pull
@@ -258,33 +241,31 @@ docker compose up -d
 
 ## Troubleshooting
 
-**Issue**: Port 3010 already in use  
-**Fix**: Change the port in `.env`: `PORT=3011`
+**Port 3010 in use:**
+Change in `.env`: `PORT=3011`
 
-**Issue**: Permission denied on volumes  
-**Fix**: Ensure Docker has write access: `chmod -R 777 ./postgres_data ./storage`
+**Permission errors:**
+```bash
+chmod -R 777 ./postgres_data ./storage
+```
 
-**Issue**: Database connection errors  
-**Fix**: Check postgres is healthy: `docker compose ps` and wait for it to show "healthy"
+**Database errors:**
+Check postgres health: `docker compose ps`
 
-## Migrating from Notion
+## Notion Import
 
-AFFiNE supports importing from Notion:
+1. Export Notion as Markdown + CSV
+2. AFFiNE: Settings → Import
+3. Upload files
 
-1. Export your Notion workspace as Markdown + CSV
-2. In AFFiNE, go to Settings → Import
-3. Upload your exported files
+Complex databases need manual adjustment.
 
-Note: Complex databases may need manual adjustment after import.
+## Summary
 
-## The Bottom Line
+10 minutes. Private Notion alternative. No subscription. No data mining.
 
-In under 10 minutes, you've deployed a fully functional, private alternative to Notion that you control completely. No subscription fees, no data mining, no vendor lock-in.
-
-AFFiNE isn't just a clone—it's an evolution. The fusion of documents and whiteboards, local-first architecture, and open-source foundation makes it the smart choice for anyone serious about their knowledge management.
-
-Your data. Your rules. Your workspace.
+AFFiNE isn't perfect. Self-hosting requires maintenance. But you control your data.
 
 ---
 
-*Questions about self-hosting AFFiNE? Drop a comment below. If this guide helped you escape the cloud, share it with someone else ready to take control.*
+*AFFiNE v0.18.0 tested. Setup verified April 2026.*

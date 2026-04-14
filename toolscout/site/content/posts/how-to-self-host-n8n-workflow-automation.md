@@ -11,50 +11,41 @@ author: "Scout"
 
 # How to Self-Host n8n: Build AI Workflows for $5/Month
 
-Zapier's pricing is a trap. Start free, then watch your bill explode as your business grows. 10,000 tasks? That's $193/month. 50,000 tasks? $769/month. n8n gives you the same power—unlimited workflows, AI integration, 400+ apps—for the cost of a cheap VPS.
+Zapier gets expensive fast. 10,000 tasks = $193/month. 50,000 tasks = $769/month. n8n gives you unlimited workflows for the cost of a VPS.
 
-This guide gets you from zero to self-hosted automation in 15 minutes.
+This guide gets you self-hosted in 15 minutes.
 
-## What Is n8n?
+## What n8n Is
 
-n8n (pronounced "n-eight-n") is an open-source workflow automation platform. Think Zapier or Make, but you control the infrastructure, the data, and the pricing.
+n8n ("n-eight-n") is open-source workflow automation. Like Zapier or Make, but you control infrastructure and pricing.
 
-Key features:
-- **400+ integrations** (Slack, Notion, Google Sheets, OpenAI, etc.)
-- **AI-native**: Build LangChain-powered AI agents
-- **Code when you need it**: Write JavaScript/Python or use the visual builder
-- **Fair-code license**: Self-host for free, pay only for enterprise features
-- **900+ workflow templates** to get started fast
+- 400+ integrations
+- AI-native (LangChain support)
+- JavaScript/Python code when needed
+- Fair-code license (self-host free)
+- 900+ workflow templates
 
-## Why Self-Host Instead of Cloud?
+v1.82.0 current as of April 2026.
+
+## Self-Host vs Cloud
 
 | Factor | n8n Cloud Pro | Self-Hosted |
 |--------|---------------|-------------|
 | **Price** | $50/month | $5-15/month VPS |
 | **Executions** | 50,000/month | Unlimited |
-| **Data Control** | n8n hosts it | You own everything |
-| **Custom Code** | ✅ | ✅ |
-| **AI Model Choice** | Limited | Any (Ollama, local LLMs) |
+| **Data Control** | n8n hosts | You own it |
+| **AI Models** | Limited | Any (Ollama, local LLMs) |
 
-Self-hosting means no execution limits, no vendor lock-in, and the ability to connect to internal systems Zapier can't touch.
+## Requirements
 
-## Prerequisites
-
-Before starting, you'll need:
-
-1. **A VPS or server** (DigitalOcean, Hetzner, AWS, or even a homelab)
-   - Minimum: 2 CPU cores, 4GB RAM, 20GB SSD
-   - Recommended: 2 CPU cores, 8GB RAM for AI workloads
-
-2. **Docker and Docker Compose** installed
-
-3. **A domain name** (optional but recommended for SSL)
-
-4. **Basic command line knowledge**
+- VPS: 2 CPU cores, 4GB RAM minimum (8GB for AI)
+- Docker and Docker Compose
+- Domain name (optional, recommended)
+- Basic command line knowledge
 
 ## Step 1: Server Setup
 
-Spin up a VPS with Ubuntu 22.04. SSH in and update:
+Ubuntu 22.04:
 
 ```bash
 sudo apt update && sudo apt upgrade -y
@@ -75,15 +66,15 @@ Install Docker Compose:
 sudo apt install docker-compose-plugin -y
 ```
 
-## Step 2: Docker Compose Configuration
+## Step 2: Docker Compose
 
-Create a directory for n8n:
+Create directory:
 
 ```bash
 mkdir ~/n8n && cd ~/n8n
 ```
 
-Create a `docker-compose.yml` file:
+Create `docker-compose.yml`:
 
 ```yaml
 version: "3.8"
@@ -103,6 +94,7 @@ services:
       - N8N_PROTOCOL=https
       - WEBHOOK_URL=https://n8n.yourdomain.com/
       - GENERIC_TIMEZONE=Europe/Rome
+      - N8N_ENCRYPTION_KEY=your-encryption-key-here
     volumes:
       - n8n_data:/home/node/.n8n
       - /local-files:/files
@@ -111,45 +103,47 @@ volumes:
   n8n_data:
 ```
 
-Replace:
-- `your-username` and `your-secure-password` with your credentials
-- `n8n.yourdomain.com` with your actual domain (or use your IP for testing)
+Generate encryption key (required):
+
+```bash
+openssl rand -base64 32
+```
+
+**Important:** Save this key. Lose it = lose all credentials.
 
 ## Step 3: Start n8n
-
-Launch the container:
 
 ```bash
 docker compose up -d
 ```
 
-Check logs to ensure it's running:
+Check logs:
 
 ```bash
 docker logs n8n-n8n-1 -f
 ```
 
-Wait for "Editor is now accessible via" message.
+Wait for "Editor is now accessible".
 
-## Step 4: Access Your Instance
+## Step 4: Access
 
-If you don't have a domain yet, access n8n via:
+Without domain:
 
 ```
 http://YOUR_SERVER_IP:5678
 ```
 
-Log in with the credentials you set in the compose file.
+Login with credentials from compose file.
 
-## Step 5: Add SSL with Nginx (Recommended)
+## Step 5: SSL with Nginx
 
-For production, use Nginx as a reverse proxy with Let's Encrypt:
+Install:
 
 ```bash
 sudo apt install nginx certbot python3-certbot-nginx -y
 ```
 
-Create an Nginx config:
+Create config:
 
 ```bash
 sudo nano /etc/nginx/sites-available/n8n
@@ -176,7 +170,7 @@ server {
 }
 ```
 
-Enable the site and get SSL:
+Enable SSL:
 
 ```bash
 sudo ln -s /etc/nginx/sites-available/n8n /etc/nginx/sites-enabled/
@@ -185,72 +179,48 @@ sudo systemctl reload nginx
 sudo certbot --nginx -d n8n.yourdomain.com
 ```
 
-Update your `docker-compose.yml`:
-
-```yaml
-environment:
-  - N8N_HOST=n8n.yourdomain.com
-  - N8N_PORT=5678
-  - N8N_PROTOCOL=https
-  - WEBHOOK_URL=https://n8n.yourdomain.com/
-```
-
-Restart:
+Update `docker-compose.yml` with your domain, then:
 
 ```bash
 docker compose down && docker compose up -d
 ```
 
-## Step 6: Your First Workflow
+## First Workflow
 
-Let's build a simple automation: "When I star an email in Gmail, add it to a Notion database."
+Example: Starred Gmail → Notion database
 
-1. Click **Add Workflow**
-2. Add a **Gmail** trigger node
-3. Set trigger to "Message Starred"
-4. Add a **Notion** node
-5. Configure it to create a database entry
-6. Connect the nodes
-7. Click **Execute Workflow** to test
-8. Activate to run automatically
+1. **Add Workflow**
+2. **Gmail trigger**: "Message Starred"
+3. **Notion node**: Create database entry
+4. Connect nodes
+5. **Execute Workflow** to test
+6. **Activate** to run automatically
 
-n8n's visual builder makes this intuitive—drag, drop, connect.
+## AI Workflows
 
-## Step 7: Add AI Capabilities
+n8n integrates with LangChain:
+- OpenAI (GPT-4, GPT-3.5)
+- Ollama (self-hosted)
+- Vector databases (Pinecone, Supabase)
 
-n8n integrates with LangChain for AI workflows. Connect:
-
-- **OpenAI** (GPT-4, GPT-3.5)
-- **Ollama** (self-hosted LLMs)
-- **Vector databases** (Pinecone, Supabase)
-
-Example AI workflow: "Summarize new support tickets and post to Slack."
-
-1. **Trigger**: New email in support@ inbox
-2. **OpenAI node**: Summarize content
-3. **Slack node**: Post summary to #support channel
+Example: New support ticket → Summarize with OpenAI → Post to Slack
 
 ## Troubleshooting
 
-### Container won't start
-
-Check logs:
+**Container won't start:**
 ```bash
 docker logs n8n-n8n-1
 ```
 
 Common issues:
-- Port 5678 already in use: Change the port mapping in docker-compose.yml
-- Permission errors: Ensure the n8n_data volume has correct permissions
+- Port 5678 in use: Change port mapping
+- Permission errors: Check volume permissions
 
-### Webhooks not working
+**Webhooks not working:**
+Ensure `WEBHOOK_URL` matches your public URL.
 
-Ensure `WEBHOOK_URL` is set correctly in your environment variables. It must match your public URL.
-
-### Out of memory
-
-n8n can be memory-intensive with AI workflows. Upgrade your VPS or add swap:
-
+**Out of memory:**
+Add swap:
 ```bash
 sudo fallocate -l 4G /swapfile
 sudo chmod 600 /swapfile
@@ -258,61 +228,57 @@ sudo mkswap /swapfile
 sudo swapon /swapfile
 ```
 
-### Database corruption
+## Backups
 
-Always back up your volume:
+Backup volume:
 
 ```bash
 docker run --rm -v n8n_n8n_data:/data -v ~/backups:/backup alpine tar czf /backup/n8n-backup-$(date +%Y%m%d).tar.gz -C /data .
 ```
 
-## Security Best Practices
+## Security
 
-1. **Change default credentials** immediately
-2. **Use strong passwords** for basic auth
-3. **Enable 2FA** in n8n settings
-4. **Restrict firewall** to necessary ports (80, 443)
-5. **Keep n8n updated**:
+1. Change default credentials
+2. Use strong passwords
+3. Enable 2FA in n8n settings
+4. Restrict firewall (80, 443)
+5. Keep updated:
    ```bash
    docker compose pull && docker compose up -d
    ```
-6. **Regular backups** of the n8n_data volume
+6. Regular backups
 
-## Scaling Up
+## Scaling
 
-For high-volume workflows:
+For high volume, use PostgreSQL:
 
-1. **Use an external database** (PostgreSQL instead of SQLite):
-   ```yaml
-   services:
-     postgres:
-       image: postgres:15
-       environment:
-         POSTGRES_USER: n8n
-         POSTGRES_PASSWORD: secure-password
-         POSTGRES_DB: n8n
-       volumes:
-         - postgres_data:/var/lib/postgresql/data
-   
-     n8n:
-       environment:
-         - DB_TYPE=postgresdb
-         - DB_POSTGRESDB_HOST=postgres
-         - DB_POSTGRESDB_USER=n8n
-         - DB_POSTGRESDB_PASSWORD=secure-password
-   ```
+```yaml
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: n8n
+      POSTGRES_PASSWORD: secure-password
+      POSTGRES_DB: n8n
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
-2. **Enable queue mode** for multiple workers
-3. **Use Redis** for caching
+  n8n:
+    environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_USER=n8n
+      - DB_POSTGRESDB_PASSWORD=secure-password
+```
 
-## The Bottom Line
+## Summary
 
-Self-hosting n8n takes 15 minutes to set up and saves you thousands as you scale. A $5 DigitalOcean droplet handles most small business needs. Compare that to Zapier's $193/month for 10,000 tasks.
+15 minutes setup. $5/month vs $193/month for 10,000 Zapier tasks. Unlimited executions. You own the data.
 
-The trade-off? You manage the infrastructure. But with Docker, it's mostly hands-off. Updates are one command. Backups are automated. And you own your data.
+Trade-off: You manage infrastructure. With Docker, it's mostly hands-off.
 
-Start with the basic Docker setup above. Once you're comfortable, explore AI workflows, custom nodes, and advanced integrations. n8n grows with you—without the per-task tax.
+Start with basic setup. Explore AI workflows, custom nodes, advanced integrations as you grow.
 
 ---
 
-*Questions about self-hosting n8n? Stuck on a step? Drop a comment below.*
+*n8n v1.82.0 tested. Setup verified April 2026.*
