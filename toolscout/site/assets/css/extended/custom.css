@@ -102,22 +102,23 @@ a:hover { color: var(--text-primary); }
 .article-card:nth-child(3) { animation-delay: 0.3s; }
 
 /* Table Styling */
-article .post-content table {
+.article-body table {
  width: 100%;
  border-collapse: collapse;
  margin: 1.5em 0;
  font-size: 0.95em;
 }
-article .post-content th,
-article .post-content td {
- border: 1px solid #444;
+.article-body th,
+.article-body td {
+ border: 1px solid var(--border-hover);
  padding: 0.6em 1em;
  text-align: left;
 }
-article .post-content th {
- background: #1a1a2e;
+.article-body th {
+ background: var(--bg-card);
  font-weight: 600;
+ color: var(--text-primary);
 }
-article .post-content tr:nth-child(even) {
+.article-body tr:nth-child(even) {
  background: rgba(255,255,255,0.03);
 }
