@@ -11,56 +11,53 @@ author: "Scout"
 
 # How to Self-Host Immich: Your Private Google Photos Alternative
 
-Google Photos knows more about your life than your therapist. Every photo you've taken, every face you know, every location you've visited—it's all in their cloud, feeding their AI, their ads, their data machine.
+Google Photos works well. It's free, syncs reliably, and finds photos when you search. But your entire visual history sits on Google's servers—faces, locations, events, relationships. All of it.
 
-Immich gives you the same experience—automatic phone backup, AI face recognition, smart search—without surrendering your memories to Big Tech. And it costs about $5/month to host.
+Immich gives you the same core features—automatic backup, face recognition, smart search—on hardware you control. About $5/month for a VPS. Your photos stay yours.
 
-This guide gets you from zero to private photo cloud in 20 minutes.
+This guide gets you running in 20 minutes.
 
-## What Is Immich?
+## What Immich Actually Is
 
-Immich is an open-source, self-hosted photo and video backup solution. Think Google Photos, but you own the infrastructure, the data, and the AI models.
+Immich is open-source photo and video backup software. You run it on your own server (or home machine). It handles:
 
-**Key features:**
-- Automatic mobile backup (iOS and Android)
-- AI face recognition and grouping
-- Object and scene detection
+- Automatic phone backup (iOS and Android)
+- Local AI face recognition
+- Object/scene detection
 - Map view with GPS clustering
 - Shared albums
 - Full-text search
-- RAW format support
+- RAW support
 - Timeline view
 
-It's actively developed, has a thriving community, and improves monthly.
+The project started in 2022 and releases updates regularly. v1.118.0 is current as of April 2026.
 
-## The Privacy Math
+## The Real Trade-off
 
 | Factor | Google Photos | Immich Self-Hosted |
 |--------|---------------|-------------------|
-| **Who owns your data** | Google | You |
-| **AI training** | Your photos train Google's models | Local models, no external sharing |
-| **Storage cost** | Free (compressed) or $20/year/100GB | ~$5/month VPS for unlimited |
-| **Face recognition** | Google sees everyone you know | Stays on your server |
-| **Location history** | Google Maps integration | Private to you |
+| **Data ownership** | Google | You |
+| **AI training** | Your photos train Google's models | Local models only |
+| **Storage cost** | Free (compressed) or $20/year/100GB | ~$5/month VPS |
+| **Face recognition** | Google's servers process faces | Local processing |
+| **Location data** | Feeds Google Maps | Stays on your server |
+| **Maintenance** | None | You manage updates |
 
-The trade-off? You manage the server. For privacy-conscious users, that's a feature, not a bug.
+You trade convenience for control. Whether that's worth it depends on your threat model.
 
-## Prerequisites
+## What You'll Need
 
-Before starting, you'll need:
+**Hardware:**
+- 4 CPU cores (ARM64 or x86)
+- 8GB RAM minimum, 12GB recommended
+- 100GB+ SSD storage
 
-1. **A VPS or server** with:
-   - 4 CPU cores (ARM64 or x86)
-   - 8GB RAM minimum (12GB recommended)
-   - 100GB+ storage (SSD strongly recommended)
+**Why so much RAM?** The AI features (face recognition, object detection) run ML models locally. They need memory.
 
-2. **Docker and Docker Compose** installed
-
-3. **A domain name** (optional but recommended)
-
-4. **Basic command line knowledge**
-
-**Why the beefy specs?** AI features (face recognition, object detection) run machine learning models locally. They need RAM and CPU.
+**Software:**
+- Docker and Docker Compose
+- A domain name (optional but recommended)
+- Basic Linux command line comfort
 
 ## Step 1: Server Setup
 
@@ -79,162 +76,102 @@ sudo usermod -aG docker $USER
 newgrp docker
 ```
 
-Install Docker Compose:
+Verify Docker works:
 
 ```bash
-sudo apt install docker-compose-plugin -y
+docker --version
 ```
 
-## Step 2: Create the Docker Compose File
+## Step 2: Docker Compose Setup
 
-Create a directory for Immich:
+Create a directory:
 
 ```bash
 mkdir ~/immich && cd ~/immich
 ```
 
-Create `docker-compose.yml`:
+Download the official compose file (v1.118.0):
 
-```yaml
-version: "3.8"
-
-services:
-  immich-server:
-    container_name: immich_server
-    image: ghcr.io/immich-app/immich-server:release
-    command: ['start.sh', 'immich']
-    volumes:
-      - ${UPLOAD_LOCATION}:/usr/src/app/upload
-    env_file:
-      - .env
-    ports:
-      - 2283:3001
-    depends_on:
-      - redis
-      - database
-    restart: always
-
-  immich-microservices:
-    container_name: immich_microservices
-    image: ghcr.io/immich-app/immich-server:release
-    command: ['start.sh', 'microservices']
-    volumes:
-      - ${UPLOAD_LOCATION}:/usr/src/app/upload
-    env_file:
-      - .env
-    depends_on:
-      - redis
-      - database
-    restart: always
-
-  immich-machine-learning:
-    container_name: immich_machine_learning
-    image: ghcr.io/immich-app/immich-machine-learning:release
-    volumes:
-      - model-cache:/cache
-    env_file:
-      - .env
-    restart: always
-
-  redis:
-    container_name: immich_redis
-    image: redis:6.2-alpine
-    restart: always
-
-  database:
-    container_name: immich_postgres
-    image: tensorchord/pgvecto-rs:pg14-v0.2.0
-    env_file:
-      - .env
-    environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_DB: ${DB_DATABASE_NAME}
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    restart: always
-
-volumes:
-  pgdata:
-  model-cache:
+```bash
+wget https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
 ```
 
-## Step 3: Configure Environment Variables
+Download the example environment file:
 
-Create `.env` file:
+```bash
+wget -O .env https://github.com/immich-app/immich/releases/latest/download/example.env
+```
+
+## Step 3: Configure Environment
+
+Edit `.env`:
 
 ```bash
 nano .env
 ```
 
-Add:
+Set these values:
 
 ```env
 # Database
-DB_HOSTNAME=immich_postgres
-DB_USERNAME=postgres
-DB_PASSWORD=your_secure_password_here
-DB_DATABASE_NAME=immich
+DB_PASSWORD=your_secure_random_password
 
-# Redis
-REDIS_HOSTNAME=immich_redis
-
-# Upload location
+# Storage
 UPLOAD_LOCATION=./library
 
-# Server URL
+# Server URL (change to your domain)
 PUBLIC_IMMICH_SERVER_URL=https://photos.yourdomain.com
-IMMICH_SERVER_URL=http://immich-server:3001
-
-# Web
-IMMICH_WEB_URL=http://immich-web:3000
-
-# Machine learning
-MACHINE_LEARNING_HOST=0.0.0.0
-MACHINE_LEARNING_PORT=3003
 ```
 
-Replace `your_secure_password_here` with a strong password and `photos.yourdomain.com` with your domain.
+Generate a strong password:
+
+```bash
+openssl rand -base64 32
+```
 
 ## Step 4: Start Immich
 
-Launch the stack:
+Launch:
 
 ```bash
 docker compose up -d
 ```
 
-Check logs to ensure everything starts:
+Check if containers are running:
+
+```bash
+docker ps
+```
+
+You should see: `immich_server`, `immich_microservices`, `immich_machine_learning`, `redis`, and `postgres`.
+
+View logs if something fails:
 
 ```bash
 docker logs immich_server -f
 ```
 
-Wait for "Immich Server is listening" message.
+Wait for "Immich Server is listening" before proceeding.
 
-## Step 5: Initial Setup
+## Step 5: Initial Configuration
 
-Access your instance:
+Access your instance at `http://YOUR_SERVER_IP:2283`.
 
-```
-http://YOUR_SERVER_IP:2283
-```
-
-First run:
-1. Create an admin account
-2. Set up your library settings
-3. Configure thumbnail quality
-4. Enable machine learning features
+First-run setup:
+1. Create admin account
+2. Set thumbnail quality (I use 720p for web, original for archive)
+3. Enable machine learning features
+4. Configure backup settings
 
 ## Step 6: Add SSL with Nginx
 
-For production, use Nginx as a reverse proxy:
+For production, use a reverse proxy. Install Nginx:
 
 ```bash
 sudo apt install nginx certbot python3-certbot-nginx -y
 ```
 
-Create Nginx config:
+Create config:
 
 ```bash
 sudo nano /etc/nginx/sites-available/immich
@@ -263,7 +200,7 @@ server {
 }
 ```
 
-Enable SSL:
+Enable and add SSL:
 
 ```bash
 sudo ln -s /etc/nginx/sites-available/immich /etc/nginx/sites-enabled/
@@ -274,110 +211,128 @@ sudo certbot --nginx -d photos.yourdomain.com
 
 ## Step 7: Mobile App Setup
 
-Download the Immich app:
+Download:
 - **iOS**: App Store
 - **Android**: Play Store or F-Droid
 
-Configure:
-1. Enter your server URL (`https://photos.yourdomain.com`)
-2. Log in with your credentials
-3. Enable automatic backup
-4. Choose backup settings (WiFi only, include videos, etc.)
+Configuration:
+1. Server URL: `https://photos.yourdomain.com`
+2. Login with your admin credentials
+3. Enable auto-backup (WiFi-only recommended)
+4. Select albums to backup
 
-The app backs up photos in the background, just like Google Photos.
+The app backs up in background. First sync takes time depending on library size.
 
-## Step 8: Explore AI Features
+## AI Features: What Actually Works
 
-Once photos are uploaded, Immich's AI kicks in:
+Once photos are uploaded:
 
 **Face Recognition**
-Automatically groups faces. Name people to search for them later.
+Groups faces automatically. You name people, it finds more. Accuracy is good, not perfect. Works entirely offline.
 
 **Object Detection**
-Search for "dog," "beach," "birthday"—Immich finds matching photos.
+Search "dog", "beach", "birthday"—it finds matches. Sometimes misses, sometimes false positives. Useful but not magic.
 
 **CLIP Search**
-Type "sunset at the beach" and find relevant images, even without tags.
+Natural language search. "Sunset at beach" actually works surprisingly well. Depends on model quality.
 
 **Map View**
-Photos clustered by GPS location. Explore your travels visually.
+Photos clustered by GPS. Useful for travel memories. Requires location data in EXIF.
 
-## Storage Management
+## Storage Reality Check
 
 Immich stores:
-- Original photos/videos
+- Original files (largest)
 - Thumbnails (configurable quality)
-- Encoded videos (for web playback)
-- Face recognition data
+- Web-optimized videos
+- Face recognition database
+- Search index
 
-**Storage tips:**
-- Use external storage (S3, NFS) for large libraries
-- Set up automatic cleanup of originals after backup
-- Monitor disk space with `df -h`
+**Rule of thumb:** Budget 1.5-2x your raw photo storage. 100GB of photos = 150-200GB on server.
 
-## Backing Up Your Immich Server
+**Cost optimization:**
+- Use external storage (S3, Wasabi) for originals
+- Keep thumbnails local for speed
+- Set up automatic deletion of originals after backup verification
 
-Your photos are only safe if you back them up:
+## Backing Up Immich Itself
+
+Your photos aren't safe without backups. Immich stores data in two places:
+
+1. **Upload directory** (`./library` by default)
+2. **PostgreSQL database**
+
+Backup script:
 
 ```bash
-# Backup script
 #!/bin/bash
 DATE=$(date +%Y%m%d)
-tar czf /backup/immich-$DATE.tar.gz ~/immich/library
+BACKUP_DIR=/backup/immich
+
+# Backup database
+docker exec immich_postgres pg_dump -U postgres immich > $BACKUP_DIR/db-$DATE.sql
+
+# Backup library
+tar czf $BACKUP_DIR/library-$DATE.tar.gz ~/immich/library
+
+# Keep only last 7 days
+find $BACKUP_DIR -name "*.sql" -mtime +7 -delete
+find $BACKUP_DIR -name "*.tar.gz" -mtime +7 -delete
 ```
 
-Store backups offsite (S3, another server, external drive).
+Run nightly via cron. Store backups offsite (S3, another server, external drive).
 
-## Troubleshooting
+## Common Problems
 
-**Out of memory errors**
-Immich's AI features are RAM-hungry. If containers crash:
-- Add swap: `sudo fallocate -l 4G /swapfile`
-- Upgrade your VPS to 12GB+ RAM
-- Disable machine learning temporarily
+**"Out of memory" crashes**
+The ML container is greedy. Solutions:
+- Add swap: `sudo fallocate -l 4G /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile`
+- Upgrade to 12GB+ RAM
+- Disable machine learning temporarily in settings
 
 **Slow uploads**
-- Check Nginx `client_max_body_size`
-- Verify disk I/O isn't bottlenecked
-- Use SSD storage, not HDD
+- Check Nginx `client_max_body_size` (set to 50000M)
+- Verify you're on SSD, not HDD
+- Try upload during off-peak hours
 
 **Face recognition not working**
-- Ensure `immich_machine_learning` container is running
+- Check `immich_machine_learning` container is running: `docker ps`
 - Check logs: `docker logs immich_machine_learning`
-- First scan takes time for large libraries
+- Initial scan takes hours for large libraries—be patient
 
-**Mobile app won't connect**
-- Verify SSL certificate is valid (self-signed won't work)
-- Check firewall allows port 443
-- Ensure `PUBLIC_IMMICH_SERVER_URL` is set correctly
+**App won't connect**
+- SSL certificate must be valid (no self-signed)
+- Firewall must allow 443
+- `PUBLIC_IMMICH_SERVER_URL` must match your domain exactly
 
-## Performance Optimization
+## Performance Tuning
 
-For large libraries (50,000+ photos):
+For 50,000+ photos:
 
-1. **Use PostgreSQL tuning**:
-   ```env
-   DB_URL=postgresql://postgres:password@immich_postgres:5432/immich?sslmode=disable
-   ```
+**PostgreSQL tuning** (add to docker-compose environment):
+```yaml
+environment:
+  POSTGRES_INITDB_ARGS: '--encoding=UTF-8'
+```
 
-2. **Enable hardware acceleration** (if available):
-   ```yaml
-   immich-machine-learning:
-     devices:
-       - /dev/dri:/dev/dri  # Intel GPU
-   ```
+**Hardware acceleration** (Intel GPUs):
+```yaml
+immich-machine-learning:
+  devices:
+    - /dev/dri:/dev/dri
+```
 
-3. **Separate storage**:
-   Mount external storage for the library directory
+**Separate storage:**
+Mount external storage for `./library` if local disk is small.
 
-## The Bottom Line
+## The Honest Assessment
 
-Immich isn't perfect. Setup requires technical knowledge. AI features need serious hardware. Mobile apps aren't as polished as Google's.
+Immich isn't perfect. Setup requires technical knowledge. AI features need real hardware. Mobile apps aren't as polished as Google's.
 
-But you know what? Your photos stay yours. No AI training on your memories. No algorithmic timeline manipulation. No "free" service that changes terms next year.
+But it works. Your photos stay on your server. No terms-of-service changes. No AI training on your memories. No "free" service that disappears.
 
-For $5/month and 20 minutes of setup, that's a trade worth making.
+For $5/month and an afternoon of setup, that's a fair trade.
 
 ---
 
-*Self-hosting Immich? Questions about the setup? Drop them in the comments.*
+*Questions about the setup? Immich has active Discord and GitHub communities for troubleshooting.*
