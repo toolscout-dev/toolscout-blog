@@ -184,3 +184,28 @@ a:hover { color: var(--text-primary); }
  border-color: rgba(255, 255, 255, 0.12);
  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 200, 150, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
+
+/* === 3D CARD TILT === */
+.article-card {
+ transform-style: preserve-3d;
+ transition: transform 0.15s ease-out, background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+ will-change: transform;
+ position: relative;
+ overflow: hidden;
+}
+
+.card-shine {
+ position: absolute;
+ inset: 0;
+ border-radius: inherit;
+ pointer-events: none;
+ opacity: 0;
+ transition: opacity 0.3s ease;
+ z-index: 1;
+ mix-blend-mode: soft-light;
+}
+
+.card-title, .card-meta, .card-excerpt, .card-footer {
+ position: relative;
+ z-index: 2;
+}

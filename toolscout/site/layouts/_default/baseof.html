@@ -43,5 +43,69 @@
  });
  </script>
  {{ end }}
+<script>
+(function() {
+ const cards = document.querySelectorAll('.article-card');
+ if (!cards.length) return;
+
+ cards.forEach(card => {
+ const shine = document.createElement('div');
+ shine.classList.add('card-shine');
+ card.appendChild(shine);
+ });
+
+ function applyTilt(card, xPct, yPct) {
+ const tiltX = (yPct - 50) * 0.3;
+ const tiltY = (xPct - 50) * -0.3;
+ card.style.transform = 'perspective(800px) rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg) scale3d(1.02, 1.02, 1.02)';
+ const shine = card.querySelector('.card-shine');
+ if (shine) {
+ shine.style.background = 'radial-gradient(circle at ' + xPct + '% ' + yPct + '%, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 40%, transparent 70%)';
+ shine.style.opacity = '1';
+ }
+ }
+
+ function resetTilt(card) {
+ card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+ const shine = card.querySelector('.card-shine');
+ if (shine) shine.style.opacity = '0';
+ }
+
+ // Desktop: mouse
+ cards.forEach(card => {
+ card.addEventListener('mousemove', function(e) {
+ const rect = card.getBoundingClientRect();
+ const xPct = ((e.clientX - rect.left) / rect.width) * 100;
+ const yPct = ((e.clientY - rect.top) / rect.height) * 100;
+ applyTilt(card, xPct, yPct);
+ });
+ card.addEventListener('mouseleave', function() {
+ resetTilt(card);
+ });
+ });
+
+ // Mobile: gyroscope
+ if (window.DeviceOrientationEvent) {
+ let lastBeta = 0, lastGamma = 0;
+ window.addEventListener('deviceorientation', function(e) {
+ if (e.beta === null || e.gamma === null) return;
+ const beta = Math.max(-30, Math.min(30, e.beta));
+ const gamma = Math.max(-30, Math.min(30, e.gamma));
+ if (Math.abs(beta - lastBeta) < 0.5 && Math.abs(gamma - lastGamma) < 0.5) return;
+ lastBeta = beta;
+ lastGamma = gamma;
+ const xPct = ((gamma + 30) / 60) * 100;
+ const yPct = ((beta + 30) / 60) * 100;
+ cards.forEach(card => {
+ const rect = card.getBoundingClientRect();
+ const viewH = window.innerHeight;
+ if (rect.top < viewH && rect.bottom > 0) {
+ applyTilt(card, xPct, yPct);
+ }
+ });
+ });
+ }
+})();
+</script>
 </body>
 </html>
