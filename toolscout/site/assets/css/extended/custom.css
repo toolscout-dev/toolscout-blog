@@ -206,18 +206,18 @@ a:hover { color: var(--text-primary); }
 
 .card-glare {
  position: absolute;
- width: 180px;
- height: 180px;
+ width: 220px;
+ height: 220px;
  border-radius: 50%;
- background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+ background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
  pointer-events: none;
  opacity: 0;
- transition: opacity 0.4s ease;
+ transition: opacity 0.3s ease;
  top: 50%;
  left: 50%;
- margin: -90px 0 0 -90px;
+ margin: -110px 0 0 -110px;
  z-index: 1;
- filter: blur(20px);
+ filter: blur(25px);
 }
 
 .card-title, .card-meta, .card-excerpt, .card-footer, .card-category, .card-date, .card-reading-time, .card-arrow {

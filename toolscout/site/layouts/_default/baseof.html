@@ -45,39 +45,38 @@
  {{ end }}
 <script>
 (function() {
- const cards = document.querySelectorAll('.article-card');
+ var cards = document.querySelectorAll('.article-card');
  if (!cards.length) return;
 
- cards.forEach(card => {
- const shine = document.createElement('div');
+ cards.forEach(function(card) {
+ var shine = document.createElement('div');
  shine.classList.add('card-shine');
  card.appendChild(shine);
-
- const glare = document.createElement('div');
+ var glare = document.createElement('div');
  glare.classList.add('card-glare');
  card.appendChild(glare);
  });
 
  function applyEffect(card, xPct, yPct) {
- var tiltX = (yPct - 50) * 0.25;
- var tiltY = (xPct - 50) * -0.25;
- card.style.transform = 'perspective(600px) rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg)';
-
+ var tiltX = (yPct - 50) * 0.35;
+ var tiltY = (xPct - 50) * -0.35;
+ var moveX = (xPct - 50) * 0.4;
+ var moveY = (yPct - 50) * 0.3;
+ card.style.transform = 'perspective(600px) rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg) translate3d(' + moveX + 'px, ' + moveY + 'px, 0)';
  var shine = card.querySelector('.card-shine');
  if (shine) {
  shine.style.opacity = '1';
- shine.style.background = 'radial-gradient(circle at ' + xPct + '% ' + yPct + '%, rgba(0,200,150,0.15) 0%, rgba(0,136,255,0.08) 30%, transparent 60%)';
+ shine.style.background = 'radial-gradient(circle at ' + xPct + '% ' + yPct + '%, rgba(0,200,150,0.25) 0%, rgba(0,136,255,0.12) 35%, transparent 65%)';
  }
-
  var glare = card.querySelector('.card-glare');
  if (glare) {
  glare.style.opacity = '1';
- glare.style.transform = 'translate(' + (xPct - 50) * 0.8 + 'px, ' + (yPct - 50) * 0.8 + 'px)';
+ glare.style.transform = 'translate(' + (xPct - 50) * 1.2 + 'px, ' + (yPct - 50) * 1.2 + 'px)';
  }
  }
 
  function resetEffect(card) {
- card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg)';
+ card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) translate3d(0, 0, 0)';
  var shine = card.querySelector('.card-shine');
  if (shine) shine.style.opacity = '0';
  var glare = card.querySelector('.card-glare');
@@ -100,8 +99,8 @@
  if (e.beta === null || e.gamma === null) return;
  var beta = Math.max(-25, Math.min(25, e.beta - 45));
  var gamma = Math.max(-25, Math.min(25, e.gamma));
- smoothBeta += (beta - smoothBeta) * 0.12;
- smoothGamma += (gamma - smoothGamma) * 0.12;
+ smoothBeta += (beta - smoothBeta) * 0.15;
+ smoothGamma += (gamma - smoothGamma) * 0.15;
  var xPct = ((smoothGamma + 25) / 50) * 100;
  var yPct = ((smoothBeta + 25) / 50) * 100;
  cards.forEach(function(card) {
