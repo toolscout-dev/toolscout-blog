@@ -185,10 +185,10 @@ a:hover { color: var(--text-primary); }
  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 200, 150, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
-/* === 3D CARD TILT === */
+/* === HOLOGRAPHIC 3D CARDS === */
 .article-card {
  transform-style: preserve-3d;
- transition: transform 0.15s ease-out, background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+ transition: transform 0.12s ease-out, background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
  will-change: transform;
  position: relative;
  overflow: hidden;
@@ -200,12 +200,27 @@ a:hover { color: var(--text-primary); }
  border-radius: inherit;
  pointer-events: none;
  opacity: 0;
- transition: opacity 0.3s ease;
+ transition: opacity 0.4s ease;
  z-index: 1;
- mix-blend-mode: soft-light;
 }
 
-.card-title, .card-meta, .card-excerpt, .card-footer {
+.card-glare {
+ position: absolute;
+ width: 180px;
+ height: 180px;
+ border-radius: 50%;
+ background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+ pointer-events: none;
+ opacity: 0;
+ transition: opacity 0.4s ease;
+ top: 50%;
+ left: 50%;
+ margin: -90px 0 0 -90px;
+ z-index: 1;
+ filter: blur(20px);
+}
+
+.card-title, .card-meta, .card-excerpt, .card-footer, .card-category, .card-date, .card-reading-time, .card-arrow {
  position: relative;
  z-index: 2;
 }

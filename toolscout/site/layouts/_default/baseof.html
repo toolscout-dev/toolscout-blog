@@ -52,55 +52,63 @@
  const shine = document.createElement('div');
  shine.classList.add('card-shine');
  card.appendChild(shine);
+
+ const glare = document.createElement('div');
+ glare.classList.add('card-glare');
+ card.appendChild(glare);
  });
 
- function applyTilt(card, xPct, yPct) {
- const tiltX = (yPct - 50) * 0.3;
- const tiltY = (xPct - 50) * -0.3;
- card.style.transform = 'perspective(800px) rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg) scale3d(1.02, 1.02, 1.02)';
- const shine = card.querySelector('.card-shine');
+ function applyEffect(card, xPct, yPct) {
+ var tiltX = (yPct - 50) * 0.25;
+ var tiltY = (xPct - 50) * -0.25;
+ card.style.transform = 'perspective(600px) rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg)';
+
+ var shine = card.querySelector('.card-shine');
  if (shine) {
- shine.style.background = 'radial-gradient(circle at ' + xPct + '% ' + yPct + '%, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 40%, transparent 70%)';
  shine.style.opacity = '1';
+ shine.style.background = 'radial-gradient(circle at ' + xPct + '% ' + yPct + '%, rgba(0,200,150,0.15) 0%, rgba(0,136,255,0.08) 30%, transparent 60%)';
+ }
+
+ var glare = card.querySelector('.card-glare');
+ if (glare) {
+ glare.style.opacity = '1';
+ glare.style.transform = 'translate(' + (xPct - 50) * 0.8 + 'px, ' + (yPct - 50) * 0.8 + 'px)';
  }
  }
 
- function resetTilt(card) {
- card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
- const shine = card.querySelector('.card-shine');
+ function resetEffect(card) {
+ card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg)';
+ var shine = card.querySelector('.card-shine');
  if (shine) shine.style.opacity = '0';
+ var glare = card.querySelector('.card-glare');
+ if (glare) glare.style.opacity = '0';
  }
 
- // Desktop: mouse
- cards.forEach(card => {
+ cards.forEach(function(card) {
  card.addEventListener('mousemove', function(e) {
- const rect = card.getBoundingClientRect();
- const xPct = ((e.clientX - rect.left) / rect.width) * 100;
- const yPct = ((e.clientY - rect.top) / rect.height) * 100;
- applyTilt(card, xPct, yPct);
+ var rect = card.getBoundingClientRect();
+ var xPct = ((e.clientX - rect.left) / rect.width) * 100;
+ var yPct = ((e.clientY - rect.top) / rect.height) * 100;
+ applyEffect(card, xPct, yPct);
  });
- card.addEventListener('mouseleave', function() {
- resetTilt(card);
- });
+ card.addEventListener('mouseleave', function() { resetEffect(card); });
  });
 
- // Mobile: gyroscope
  if (window.DeviceOrientationEvent) {
- let lastBeta = 0, lastGamma = 0;
+ var smoothBeta = 0, smoothGamma = 0;
  window.addEventListener('deviceorientation', function(e) {
  if (e.beta === null || e.gamma === null) return;
- const beta = Math.max(-30, Math.min(30, e.beta));
- const gamma = Math.max(-30, Math.min(30, e.gamma));
- if (Math.abs(beta - lastBeta) < 0.5 && Math.abs(gamma - lastGamma) < 0.5) return;
- lastBeta = beta;
- lastGamma = gamma;
- const xPct = ((gamma + 30) / 60) * 100;
- const yPct = ((beta + 30) / 60) * 100;
- cards.forEach(card => {
- const rect = card.getBoundingClientRect();
- const viewH = window.innerHeight;
- if (rect.top < viewH && rect.bottom > 0) {
- applyTilt(card, xPct, yPct);
+ var beta = Math.max(-25, Math.min(25, e.beta - 45));
+ var gamma = Math.max(-25, Math.min(25, e.gamma));
+ smoothBeta += (beta - smoothBeta) * 0.12;
+ smoothGamma += (gamma - smoothGamma) * 0.12;
+ var xPct = ((smoothGamma + 25) / 50) * 100;
+ var yPct = ((smoothBeta + 25) / 50) * 100;
+ cards.forEach(function(card) {
+ var rect = card.getBoundingClientRect();
+ var vh = window.innerHeight;
+ if (rect.top < vh && rect.bottom > 0) {
+ applyEffect(card, xPct, yPct);
  }
  });
  });
