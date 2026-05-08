@@ -76,7 +76,14 @@
       "published": "2026-04-13",
       "category": "how-to guides",
       "wordCount": 2800
+    },
+    {
+      "title": "Plane vs Jira: The Open Source Alternative That Costs $0 Forever",
+      "slug": "plane-vs-jira-open-source-alternative",
+      "published": "2026-05-08",
+      "category": "comparisons",
+      "wordCount": 1547
     }
   ],
-  "lastUpdated": "2026-04-13"
+  "lastUpdated": "2026-05-08"
 }
