@@ -3,15 +3,39 @@
 ## Timezone
 Europe/Rome (CET)
 
-## Every Heartbeat
-- Find 1 new low-competition keyword using Brave Search
-- Rotate categories: alternatives, comparisons, how-to guides, reviews
-- Write a full 1200-1800 word article with Hugo frontmatter and slug
-- Save to toolscout/site/content/posts/[slug].md
-- Build with: & "C:\Users\Cassiopea\AppData\Local\Programs\Hugo\hugo.exe" --minify --source "C:\Users\Cassiopea\.openclaw\workspace-toolscout\toolscout\site"
-- git add -A, commit, push
-- Update keywords.json, published.json, PIPELINE.md
-- Log to daily-logs/YYYY-MM-DD.md
-- Send me on Telegram: the article title + the live URL on mellow-clafoutis-9657ae.netlify.app
-- Read LESSONS.md before writing. Update LESSONS.md after writing.
-- If any error occurs, log to .learnings/ERRORS.md and continue
+## Schedule
+**Daily at 07:00 CET** — Automatic article publication
+
+## Pre-Flight Checklist (BEFORE writing)
+1. Read LESSONS.md — apply all learnings
+2. Check keywords.json — avoid duplicates
+3. Verify yesterday's article performed well
+
+## Article Pipeline (07:00 CET Daily)
+1. **Find keyword** — Brave Search, low competition, high intent
+2. **Research** — 3-5 authoritative sources
+3. **Write** — 1200-1800 words, Hugo frontmatter, SEO optimized
+4. **Quality gate** — If not A-grade, ABORT and notify Michael
+5. **Build** — Hugo minify
+6. **Deploy** — Cloudflare Pages
+7. **Git** — add, commit, push
+8. **Update** — keywords.json, published.json, PIPELINE.md
+9. **Log** — daily-logs/YYYY-MM-DD.md
+10. **Notify** — Telegram with title + live URL
+
+## Quality Standards (NON-NEGOTIABLE)
+- Keyword must have search volume + low competition
+- Article must be comprehensive, accurate, valuable
+- No filler, no fluff, no AI-sounding garbage
+- If uncertain: ABORT, log reason, try tomorrow
+
+## Post-Publication
+- Update LESSONS.md with new insights
+- Monitor performance (check next day)
+- Propose improvements to SOUL.md weekly
+
+## Error Handling
+- Log to .learnings/ERRORS.md
+- Notify Michael immediately on Telegram
+- NEVER publish substandard content
+- If 3 errors of same type → create prevention rule

@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "enabled": true,
+  "timezone": "Europe/Rome",
+  "schedule": [
+    {
+      "name": "daily-article",
+      "cron": "0 7 * * *",
+      "prompt": "🌅 ToolScout Daily Publisher Activated\n\nExecute the full article publishing pipeline:\n1. Read HEARTBEAT.md and LESSONS.md\n2. Find a low-competition keyword using Brave Search\n3. Research 3-5 authoritative sources\n4. Write a 1200-1800 word article with Hugo frontmatter\n5. QUALITY GATE: If not A-grade, ABORT and explain why\n6. Build: hugo --minify\n7. Deploy: wrangler pages deploy\n8. Git: add, commit, push\n9. Update: keywords.json, published.json, PIPELINE.md\n10. Log: daily-logs/YYYY-MM-DD.md\n11. Notify Michael on Telegram with: title + live URL\n\nQuality is NON-NEGOTIABLE. Better to skip a day than publish garbage.",
+      "notify": {
+        "on_start": true,
+        "on_success": true,
+        "on_failure": true,
+        "channel": "telegram",
+        "recipient": "2034047510"
+      }
+    }
+  ]
+}
