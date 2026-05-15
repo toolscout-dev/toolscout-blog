@@ -12,16 +12,17 @@ Europe/Rome (CET)
 3. Verify yesterday's article performed well
 
 ## Article Pipeline (07:00 CET Daily)
-1. **Find keyword** — Brave Search, low competition, high intent
-2. **Research** — 3-5 authoritative sources
-3. **Write** — 1200-1800 words, Hugo frontmatter, SEO optimized
-4. **Quality gate** — If not A-grade, ABORT and notify Michael
-5. **Build** — Hugo minify
-6. **Deploy** — Cloudflare Pages
-7. **Git** — add, commit, push
-8. **Update** — keywords.json, published.json, PIPELINE.md
-9. **Log** — daily-logs/YYYY-MM-DD.md
-10. **Notify** — Telegram with title + live URL
+1. **Find keyword** — Playwright → Google Trends/GitHub/Product Hunt (fallback: Brave Search)
+2. **Validate keyword** — Playwright SERP analysis, check competition level
+3. **Research** — Playwright extracts 3-5 authoritative sources (fallback: web_fetch)
+4. **Write** — 1200-1800 words, Hugo frontmatter, SEO optimized
+5. **Quality gate** — If not A-grade, ABORT and notify Michael
+6. **Build** — Hugo minify
+7. **Deploy** — Cloudflare Pages
+8. **Git** — add, commit, push
+9. **Update** — keywords.json, published.json, PIPELINE.md
+10. **Log** — daily-logs/YYYY-MM-DD.md
+11. **Notify** — Telegram with title + live URL
 
 ## Quality Standards (NON-NEGOTIABLE)
 - Keyword must have search volume + low competition

@@ -23,3 +23,9 @@
 ## Mistakes to Avoid
 - Don't use && in PowerShell commands—use ; instead
 - Always check if tracking files exist before reading
+
+## Research Tools
+- **Primary:** Playwright for GitHub trending, AlternativeTo, site-specific scraping
+- **Fallback:** Brave Search when Playwright blocked
+- **Extraction:** web_fetch for single-page content
+- **Google Search:** Often blocked by bot detection, use with caution
