@@ -1,6 +1,13 @@
 {
   "articles": [
     {
+      "title": "uv: Il Package Manager Python che Batte pip con Velocità da Record",
+      "slug": "uv-python-package-manager-rust",
+      "published": "2026-06-12",
+      "category": "developer-tools",
+      "wordCount": 1390
+    },
+    {
       "title": "Cap vs Loom: The Open Source Screen Recorder That Costs 55% Less",
       "slug": "cap-vs-loom-open-source-screen-recorder",
       "published": "2026-04-12",
@@ -92,5 +99,5 @@
       "wordCount": 1748
     }
   ],
-  "lastUpdated": "2026-05-17"
+  "lastUpdated": "2026-06-12"
 }

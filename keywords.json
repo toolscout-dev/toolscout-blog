@@ -1,6 +1,12 @@
 {
   "keywords": [
     {
+      "keyword": "uv Python package manager Rust",
+      "category": "developer-tools",
+      "searched": "2026-06-12",
+      "status": "published"
+    },
+    {
       "keyword": "Cap vs Loom open source screen recorder",
       "category": "alternatives",
       "searched": "2026-04-12",
@@ -79,5 +85,5 @@
       "status": "published"
     }
   ],
-  "lastUpdated": "2026-05-17"
+  "lastUpdated": "2026-06-12"
 }
