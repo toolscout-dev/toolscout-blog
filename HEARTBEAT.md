@@ -17,8 +17,8 @@ Europe/Rome (CET)
 3. **Research** — Extract 3-5 authoritative sources
 4. **Write** — 1200-1800 words, Hugo frontmatter, SEO optimized
 5. **Quality gate** — If not A-grade, ABORT and notify Michael
-6. **Build** — Hugo minify
-7. **Git** — add, commit, push (Cloudflare Pages auto-deploys)
+6. **Build** — Hugo minify (genera public/)
+7. **Git** — add, commit, push di TUTTO (incluso public/) per deploy automatico
 8. **Update** — keywords.json, published.json, PIPELINE.md
 9. **Log** — daily-logs/YYYY-MM-DD.md
 10. **Notify** — Telegram with title + live URL
