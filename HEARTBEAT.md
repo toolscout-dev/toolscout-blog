@@ -21,7 +21,7 @@ Europe/Rome (CET)
 7. **Git** — add, commit, push di TUTTO (incluso public/) per deploy automatico
 8. **Update** — keywords.json, published.json, PIPELINE.md
 9. **Log** — daily-logs/YYYY-MM-DD.md
-10. **Notify** — Telegram with title + live URL
+10. **Notify** — Telegram with title + live URL (Netlify auto-deploys from GitHub)
 
 ## Quality Standards (NON-NEGOTIABLE)
 - Keyword must have search volume + low competition

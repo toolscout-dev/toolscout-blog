@@ -1,5 +1,6 @@
 ---
 title: "uv: Il Package Manager Python che Batte pip con Velocità da Record"
+slug: "uv-python-package-manager-rust"
 date: 2026-06-12T14:00:00+02:00
 draft: false
 description: "Scopri uv, il package manager Python scritto in Rust che sta rivoluzionando il workflow degli sviluppatori. 10-100x più veloce di pip, è il tool più amato del 2025 secondo Stack Overflow."
