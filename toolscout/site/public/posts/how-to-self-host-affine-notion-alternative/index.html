@@ -1,0 +1,120 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>How to Self-Host AFFiNE: Your Private Notion Alternative in 10 Minutes — ToolScout — Best Software Tools & Free Alternatives</title><meta name=description content="Step-by-step guide to self-hosting AFFiNE—the open-source Notion and Miro alternative. Docker Compose setup, configuration, and tips for your private workspace."><link rel=canonical href=https://toolscout-713.pages.dev/posts/how-to-self-host-affine-notion-alternative/><link rel=stylesheet href=https://toolscout-713.pages.dev/css/extended/custom.css><meta property="og:url" content="https://toolscout-713.pages.dev/posts/how-to-self-host-affine-notion-alternative/"><meta property="og:site_name" content="ToolScout — Best Software Tools & Free Alternatives"><meta property="og:title" content="How to Self-Host AFFiNE: Your Private Notion Alternative in 10 Minutes"><meta property="og:description" content="Step-by-step guide to self-hosting AFFiNE—the open-source Notion and Miro alternative. Docker Compose setup, configuration, and tips for your private workspace."><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2026-04-12T21:48:00+02:00"><meta property="article:modified_time" content="2026-04-12T21:48:00+02:00"><meta property="article:tag" content="Self-Hosting"><meta property="article:tag" content="Notion Alternative"><meta property="article:tag" content="Docker"><meta property="article:tag" content="Privacy"><meta property="article:tag" content="Open Source"><meta itemprop=name content="How to Self-Host AFFiNE: Your Private Notion Alternative in 10 Minutes"><meta itemprop=description content="Step-by-step guide to self-hosting AFFiNE—the open-source Notion and Miro alternative. Docker Compose setup, configuration, and tips for your private workspace."><meta itemprop=datePublished content="2026-04-12T21:48:00+02:00"><meta itemprop=dateModified content="2026-04-12T21:48:00+02:00"><meta itemprop=wordCount content="463"><meta itemprop=keywords content="Self-Hosting,Notion Alternative,Docker,Privacy,Open Source"><meta name=twitter:card content="summary"><meta name=twitter:title content="How to Self-Host AFFiNE: Your Private Notion Alternative in 10 Minutes"><meta name=twitter:description content="Step-by-step guide to self-hosting AFFiNE—the open-source Notion and Miro alternative. Docker Compose setup, configuration, and tips for your private workspace."></head><body><header class=site-header><div class=header-inner><a href=/ class=site-logo>Tool<span class=logo-accent>Scout</span></a><nav class=site-nav><a href=/>Articles</a>
+<a href=/about/>About</a></nav></div></header><div class=progress-bar></div><article><header class=article-header><span class=card-category>how-to guides</span><h1>How to Self-Host AFFiNE: Your Private Notion Alternative in 10 Minutes</h1><div class=article-meta-bar><span>April 12, 2026</span>
+<span>&#183;</span>
+<span>3 min read</span>
+<span>&#183;</span>
+<span>463 words</span></div></header><div class=article-divider></div><div class=article-body><h1 id=how-to-self-host-affine-your-private-notion-alternative-in-10-minutes>How to Self-Host AFFiNE: Your Private Notion Alternative in 10 Minutes</h1><p>Notion works well. Your notes live on their servers. If that bothers you, AFFiNE is an alternative.</p><p>Open source. Self-hostable. Combines documents, whiteboards, databases. This guide gets you running in 10 minutes.</p><h2 id=what-affine-is>What AFFiNE Is</h2><p>AFFiNE (pronounced &ldquo;a-fine&rdquo;) is an open-source workspace. Documents like Notion. Whiteboards like Miro. Self-hostable.</p><p>40,000+ GitHub stars. Active development. v0.18.0 current as of April 2026.</p><h2 id=why-self-host>Why Self-Host?</h2><ul><li>Data stays on your infrastructure</li><li>No subscription fees</li><li>Use your own AI keys (Claude, OpenAI, Gemini)</li><li>Compliance requirements</li><li>Modify code if needed</li></ul><h2 id=requirements>Requirements</h2><ul><li>Docker and Docker Compose</li><li>2GB RAM (4GB recommended)</li><li>10GB disk space</li><li>Basic command line knowledge</li></ul><h2 id=step-1-create-directory>Step 1: Create Directory</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>mkdir affine-selfhosted
+</span></span><span style=display:flex><span>cd affine-selfhosted
+</span></span></code></pre></div><h2 id=step-2-download-docker-compose>Step 2: Download Docker Compose</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>curl -o docker-compose.yml https://raw.githubusercontent.com/toeverything/AFFiNE/stable/.docker/selfhost/compose.yml
+</span></span></code></pre></div><p>Or create manually:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>name</span>: <span style=color:#ae81ff>affine</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>services</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>affine</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>ghcr.io/toeverything/affine:stable</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>container_name</span>: <span style=color:#ae81ff>affine_server</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#e6db74>&#39;3010:3010&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>depends_on</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>redis</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>condition</span>: <span style=color:#ae81ff>service_healthy</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>postgres</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>condition</span>: <span style=color:#ae81ff>service_healthy</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>affine_migration</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>condition</span>: <span style=color:#ae81ff>service_completed_successfully</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>${UPLOAD_LOCATION}:/root/.affine/storage</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>${CONFIG_LOCATION}:/root/.affine/config</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>env_file</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>.env</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>environment</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>REDIS_SERVER_HOST=redis</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>DATABASE_URL=postgresql://${DB_USERNAME}:${DB_PASSWORD}@postgres:5432/${DB_DATABASE:-affine}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>affine_migration</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>ghcr.io/toeverything/affine:stable</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>container_name</span>: <span style=color:#ae81ff>affine_migration_job</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>${UPLOAD_LOCATION}:/root/.affine/storage</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>${CONFIG_LOCATION}:/root/.affine/config</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>env_file</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>.env</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>environment</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>REDIS_SERVER_HOST=redis</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>DATABASE_URL=postgresql://${DB_USERNAME}:${DB_PASSWORD}@postgres:5432/${DB_DATABASE:-affine}</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>command</span>: [<span style=color:#e6db74>&#34;sh&#34;</span>, <span style=color:#e6db74>&#34;-c&#34;</span>, <span style=color:#e6db74>&#34;node ./scripts/self-host-predeploy.js&#34;</span>]
+</span></span><span style=display:flex><span>    <span style=color:#f92672>depends_on</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>postgres</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>condition</span>: <span style=color:#ae81ff>service_healthy</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>redis</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>redis:7-alpine</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>container_name</span>: <span style=color:#ae81ff>affine_redis</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>healthcheck</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>test</span>: [<span style=color:#e6db74>&#34;CMD&#34;</span>, <span style=color:#e6db74>&#34;redis-cli&#34;</span>, <span style=color:#e6db74>&#34;ping&#34;</span>]
+</span></span><span style=display:flex><span>      <span style=color:#f92672>interval</span>: <span style=color:#ae81ff>10s</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>timeout</span>: <span style=color:#ae81ff>5s</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>retries</span>: <span style=color:#ae81ff>5</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>postgres</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>postgres:16-alpine</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>container_name</span>: <span style=color:#ae81ff>affine_postgres</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>${DB_DATA_LOCATION}:/var/lib/postgresql/data</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>environment</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>POSTGRES_USER</span>: <span style=color:#ae81ff>${DB_USERNAME}</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>POSTGRES_PASSWORD</span>: <span style=color:#ae81ff>${DB_PASSWORD}</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>POSTGRES_DB</span>: <span style=color:#ae81ff>${DB_DATABASE:-affine}</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>healthcheck</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>test</span>: [<span style=color:#e6db74>&#34;CMD-SHELL&#34;</span>, <span style=color:#e6db74>&#34;pg_isready -U ${DB_USERNAME} -d ${DB_DATABASE:-affine}&#34;</span>]
+</span></span><span style=display:flex><span>      <span style=color:#f92672>interval</span>: <span style=color:#ae81ff>10s</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>timeout</span>: <span style=color:#ae81ff>5s</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>retries</span>: <span style=color:#ae81ff>5</span>
+</span></span></code></pre></div><h2 id=step-3-configure-environment>Step 3: Configure Environment</h2><p>Create <code>.env</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Database</span>
+</span></span><span style=display:flex><span>DB_USERNAME<span style=color:#f92672>=</span>affine
+</span></span><span style=display:flex><span>DB_PASSWORD<span style=color:#f92672>=</span>your_secure_password_here
+</span></span><span style=display:flex><span>DB_DATABASE<span style=color:#f92672>=</span>affine
+</span></span><span style=display:flex><span>DB_DATA_LOCATION<span style=color:#f92672>=</span>./postgres_data
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Storage</span>
+</span></span><span style=display:flex><span>UPLOAD_LOCATION<span style=color:#f92672>=</span>./storage
+</span></span><span style=display:flex><span>CONFIG_LOCATION<span style=color:#f92672>=</span>./config
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># AFFiNE</span>
+</span></span><span style=display:flex><span>AFFINE_REVISION<span style=color:#f92672>=</span>stable
+</span></span><span style=display:flex><span>PORT<span style=color:#f92672>=</span><span style=color:#ae81ff>3010</span>
+</span></span></code></pre></div><p>Generate password:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>openssl rand -base64 <span style=color:#ae81ff>32</span>
+</span></span></code></pre></div><h2 id=step-4-launch>Step 4: Launch</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>docker compose up -d
+</span></span></code></pre></div><p>First startup takes 2-3 minutes. Check logs:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>docker compose logs -f affine
+</span></span></code></pre></div><p>Wait for &ldquo;Server is running on http://localhost:3010&rdquo;.</p><h2 id=step-5-access>Step 5: Access</h2><p>Open browser:</p><pre tabindex=0><code>http://localhost:3010
+</code></pre><p>Or server IP:</p><pre tabindex=0><code>http://your-server-ip:3010
+</code></pre><h2 id=step-6-setup>Step 6: Setup</h2><ol><li>Create admin account</li><li>Choose workspace name</li><li>Start creating</li></ol><h2 id=optional-enable-ai>Optional: Enable AI</h2><p>Add to <code>.env</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># OpenAI</span>
+</span></span><span style=display:flex><span>OPENAI_API_KEY<span style=color:#f92672>=</span>sk-your-key-here
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Or Claude</span>
+</span></span><span style=display:flex><span>ANTHROPIC_API_KEY<span style=color:#f92672>=</span>sk-ant-your-key-here
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Or Gemini</span>
+</span></span><span style=display:flex><span>GOOGLE_API_KEY<span style=color:#f92672>=</span>your-key-here
+</span></span></code></pre></div><p>Restart:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>docker compose restart
+</span></span></code></pre></div><h2 id=production-reverse-proxy>Production: Reverse Proxy</h2><p>Nginx example:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-nginx data-lang=nginx><span style=display:flex><span><span style=color:#66d9ef>server</span> {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>listen</span> <span style=color:#ae81ff>443</span> <span style=color:#e6db74>ssl</span>;
+</span></span><span style=display:flex><span>    <span style=color:#f92672>server_name</span> <span style=color:#e6db74>affine.yourdomain.com</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ssl_certificate</span> <span style=color:#e6db74>/path/to/cert.pem</span>;
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ssl_certificate_key</span> <span style=color:#e6db74>/path/to/key.pem</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>location</span> <span style=color:#e6db74>/</span> {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>proxy_pass</span> <span style=color:#e6db74>http://localhost:3010</span>;
+</span></span><span style=display:flex><span>        <span style=color:#f92672>proxy_set_header</span> <span style=color:#e6db74>Host</span> $host;
+</span></span><span style=display:flex><span>        <span style=color:#f92672>proxy_set_header</span> <span style=color:#e6db74>X-Real-IP</span> $remote_addr;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=backups>Backups</h2><p>Data locations:</p><ul><li><code>./postgres_data</code> - Database</li><li><code>./storage</code> - Files</li><li><code>./config</code> - Configuration</li></ul><p>Backup script:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#!/bin/bash
+</span></span></span><span style=display:flex><span>DATE<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>date +%Y%m%d_%H%M%S<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>tar -czf <span style=color:#e6db74>&#34;/backups/affine_</span><span style=color:#e6db74>${</span>DATE<span style=color:#e6db74>}</span><span style=color:#e6db74>.tar.gz&#34;</span> ./postgres_data ./storage ./config
+</span></span></code></pre></div><h2 id=updates>Updates</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>docker compose pull
+</span></span><span style=display:flex><span>docker compose up -d
+</span></span></code></pre></div><h2 id=troubleshooting>Troubleshooting</h2><p><strong>Port 3010 in use:</strong>
+Change in <code>.env</code>: <code>PORT=3011</code></p><p><strong>Permission errors:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>chmod -R <span style=color:#ae81ff>777</span> ./postgres_data ./storage
+</span></span></code></pre></div><p><strong>Database errors:</strong>
+Check postgres health: <code>docker compose ps</code></p><h2 id=notion-import>Notion Import</h2><ol><li>Export Notion as Markdown + CSV</li><li>AFFiNE: Settings → Import</li><li>Upload files</li></ol><p>Complex databases need manual adjustment.</p><h2 id=summary>Summary</h2><p>10 minutes. Private Notion alternative. No subscription. No data mining.</p><p>AFFiNE isn&rsquo;t perfect. Self-hosting requires maintenance. But you control your data.</p><hr><p><em>AFFiNE v0.18.0 tested. Setup verified April 2026.</em></p><div class=article-tags><a href=/tags/self-hosting/ class=tag>self-hosting</a><a href=/tags/notion-alternative/ class=tag>notion alternative</a><a href=/tags/docker/ class=tag>docker</a><a href=/tags/privacy/ class=tag>privacy</a><a href=/tags/open-source/ class=tag>open source</a></div></div></article><footer class=site-footer><div class=footer-inner><span class=footer-copy>&copy; 2026 ToolScout</span><div class=footer-links><a href=/about/>About</a>
+<a href=/index.xml>RSS</a></div></div></footer><script>window.addEventListener("scroll",function(){var e,n,t=document.querySelector(".progress-bar");if(!t)return;e=document.documentElement,n=e.scrollTop/(e.scrollHeight-e.clientHeight)*100,t.style.width=n+"%"})</script><script>(function(){if(e=document.querySelectorAll(".article-card"),!e.length)return;e.forEach(function(e){var t,n=document.createElement("div");n.classList.add("card-shine"),e.appendChild(n),t=document.createElement("div"),t.classList.add("card-glare"),e.appendChild(t)});function s(e,t,n){var s,o,i=(n-50)*.35,a=(t-50)*-.35,r=(t-50)*.4,c=(n-50)*.3;e.style.transform="perspective(600px) rotateX("+i+"deg) rotateY("+a+"deg) translate3d("+r+"px, "+c+"px, 0)",s=e.querySelector(".card-shine"),s&&(s.style.opacity="1",s.style.background="radial-gradient(circle at "+t+"% "+n+"%, rgba(0,200,150,0.25) 0%, rgba(0,136,255,0.12) 35%, transparent 65%)"),o=e.querySelector(".card-glare"),o&&(o.style.opacity="1",o.style.transform="translate("+(t-50)*1.2+"px, "+(n-50)*1.2+"px)")}function o(e){e.style.transform="perspective(600px) rotateX(0deg) rotateY(0deg) translate3d(0, 0, 0)";var t,n=e.querySelector(".card-shine");n&&(n.style.opacity="0"),t=e.querySelector(".card-glare"),t&&(t.style.opacity="0")}if(e.forEach(function(e){e.addEventListener("mousemove",function(t){var n=e.getBoundingClientRect(),o=(t.clientX-n.left)/n.width*100,i=(t.clientY-n.top)/n.height*100;s(e,o,i)}),e.addEventListener("mouseleave",function(){o(e)})}),window.DeviceOrientationEvent){var e,t=0,n=0;window.addEventListener("deviceorientation",function(o){if(o.beta===null||o.gamma===null)return;var i,a,r=Math.max(-25,Math.min(25,o.beta-45)),c=Math.max(-25,Math.min(25,o.gamma));t+=(r-t)*.15,n+=(c-n)*.15,i=(n+25)/50*100,a=(t+25)/50*100,e.forEach(function(e){var t=e.getBoundingClientRect(),n=window.innerHeight;t.top<n&&t.bottom>0&&s(e,i,a)})})}})()</script></body></html>
